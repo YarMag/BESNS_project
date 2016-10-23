@@ -41,16 +41,20 @@ Besns_number::Besns_number(uint32_t dimension)
     m_number_changed = true;
 }
 
-
 // param besns_str: besns str to be represented as number
 Besns_number::Besns_number(const std::string& besns_str) // exception
 {
-    // TODO: suppose that string is valid and have necessary amount of auxiliary digits, dot and other digits
-    m_dimension = static_cast<uint32_t>(besns_str.size() - 1);
-    m_number.resize(m_dimension); // exception
-    
-    _init_with_string(besns_str); // exception
-    m_number_changed = true;
+    _construct_with_string(besns_str); // exception
+}
+
+// param number: double number to represent
+// param required_dimension: an amount of digits which are followed by auxiliary digits
+Besns_number::Besns_number(double number, uint32_t required_dimension) // exception
+{
+    // create besns str with converter
+    const std::string besns_str = Besns_converter::double_to_besns_str(number, required_dimension); // exception
+
+    _construct_with_string(besns_str); // exception
 }
 
 // destructor
@@ -92,22 +96,6 @@ uint32_t Besns_number::get_dimension(void) const
     return m_dimension;
 }
 
-// copies data from the other besns number
-// param source: number to be copied
-void Besns_number::copy_from(const Besns_number& source) // exception
-{
-    m_dimension = source.get_dimension();
-    m_number.resize(m_dimension); // exception
-    
-    // zero number before copying
-    _init_with_zeros();
-    
-    for (int32_t source_index = source.get_lowest_index(); source_index < source.get_highest_index(); source_index++)
-    {
-        set_digit(source_index, source.get_digit(source_index));
-    }
-}
-
 // returns: str representation for current number
 const std::string& Besns_number::to_str(void) // exception
 {
@@ -139,6 +127,19 @@ void Besns_number::_init_with_zeros(void)
     {
         m_number[i] = Besns_digit::zero;
     }
+}
+
+// performs constructor actions for string with besns number
+// param besns_str: string which contains besns number
+void Besns_number::_construct_with_string(const std::string& str) // exception
+{
+    // suppose that string is valid and have necessary amount of auxiliary digits, dot and other digits
+    // if string has incorrect format, exception will be thrown during initialization
+    m_dimension = static_cast<uint32_t>(str.size() - 1);
+    m_number.resize(m_dimension); // exception
+    
+    _init_with_string(str); // exception
+    m_number_changed = true;
 }
 
 // inits number with passed besns string
