@@ -16,15 +16,6 @@ namespace besns
 // Besns_parallel_summator class
 //
 
-// constructor/destructor
-Besns_parallel_summator::Besns_parallel_summator(void)
-{
-}
-
-Besns_parallel_summator::~Besns_parallel_summator(void)
-{
-}
-
 // gets sum for two numbers
 // param first: first summand
 // param second: second summand

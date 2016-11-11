@@ -16,15 +16,6 @@ namespace besns
 // Besns_successive_summator class
 //
 
-// constructor/destructor
-Besns_successive_summator::Besns_successive_summator(void)
-{
-}
-
-Besns_successive_summator::~Besns_successive_summator(void)
-{
-}
-
 // gets sum for two numbers
 // param first: first summand
 // param second: second summand

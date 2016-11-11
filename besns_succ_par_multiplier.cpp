@@ -14,14 +14,8 @@
 namespace besns
 {
 
-// constructor/destructor
-Besns_succ_par_multiplier::Besns_succ_par_multiplier(void)
-{
-}
-
-Besns_succ_par_multiplier::~Besns_succ_par_multiplier(void)
-{
-}
+// Besns_succ_par_multiplier class
+//
 
 // gets multiplication of two numbers
 // param first: first operand
@@ -43,8 +37,6 @@ Besns_number Besns_succ_par_multiplier::get_mul(const Besns_number& first, const
         result.set_digit(result_index, first.get_digit(result_index));
     }
     
-    Besns_parallel_summator helper_summator;
-    
 	// multiplication
     for ( int32_t current_index = start_index; current_index <= end_index; current_index++)
     {
@@ -64,7 +56,7 @@ Besns_number Besns_succ_par_multiplier::get_mul(const Besns_number& first, const
             }
             
             // use parallel summator to get multiplication
-            result = helper_summator.get_sum(result, partial_product);
+			result = Besns_parallel_summator::get_sum(result, partial_product);
         }
         else
             ; // no need to multiply, sum, etc., since current digit is zero

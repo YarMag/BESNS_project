@@ -19,8 +19,7 @@ Besns_number second(input_number, digits_after_point);
 
 To operate with numbers, use summators and multiplier. Include files "besns_successive_summator.h", "besns_parallel_summator.h" and "besns_succ_par_multiplier.h" one by one, or place them in common header. Summation might look like this:
 
-Besns_summator\* summator = new Besns_successive_summator();
-Besns_number result = summator->get_sum(first, second);
+Besns_number result = Besns_successive_summator::get_sum(first, second);
 
 Other operations could be done in similar way.
 

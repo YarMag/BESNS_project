@@ -9,7 +9,7 @@
 #ifndef besns_successive_summator_h
 #define besns_successive_summator_h
 
-#include "besns_summator.h"
+#include "besns_number.h"
 
 namespace besns
 {
@@ -17,27 +17,23 @@ namespace besns
 //
 // Besns_successive_summator class
 //
-// Class implements summation with successive method.
+// Static class implements summation with successive method.
 //
-class Besns_successive_summator: public Besns_summator
+class Besns_successive_summator
 {
 public:
-    // constructor/destructor
-    Besns_successive_summator(void);
-    virtual ~Besns_successive_summator(void);
-    
     // gets sum for two numbers
     // param first: first summand
     // param second: second summand
     // returns: sum number
-    virtual Besns_number get_sum(const Besns_number& first, const Besns_number& second);
+    static Besns_number get_sum(const Besns_number& first, const Besns_number& second);
     
 private:
     // corrects triad according to arithmetic rules
-    void _correct_triad(Besns_triad& triad) const;
+    static void _correct_triad(Besns_triad& triad);
     
     // shift triad - throw away first digit and add zero as new third
-    void _shift_triad(Besns_triad& triad) const;
+    static void _shift_triad(Besns_triad& triad);
 };
 
 }
