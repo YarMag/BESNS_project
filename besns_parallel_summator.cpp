@@ -20,10 +20,35 @@ namespace besns
 // param first: first summand
 // param second: second summand
 // returns: sum number
-Besns_number Besns_parallel_summator::get_sum(const Besns_number& first, const Besns_number& second)
+Besns_number Besns_parallel_summator::get_sum(const Besns_number& first, const Besns_number& second) // exception
 {
-    uint32_t number_dimension = std::max(first.get_dimension(), second.get_dimension());
-    
+	// sometimes there are errors when sum with zero - summation result is incorrect
+	// to deal with such issue, just return argument which differs from zero
+	bool is_first_zero = first.is_zero();
+	bool is_second_zero = second.is_zero();
+
+	if (is_first_zero && !is_second_zero)
+	{
+		// if first is zero and second is not - return second number's copy
+		return Besns_number(second);
+	}
+	else if (is_second_zero)
+	{
+		// optimization trick - no need to check first number
+		// we do not care if first is zero or not - returning first number's copy is correct anyway
+		// it would be a copy of zero (if both are zeros) or a copy of some value (if second is zero and first is not)
+		return Besns_number(first);
+	}
+	else
+		; // do nothing, calculate in usual way
+
+	return _calculate_sum(first, second); // exception
+}
+
+Besns_number Besns_parallel_summator::_calculate_sum(const Besns_number& first, const Besns_number& second) // exception
+{
+	uint32_t number_dimension = std::max(first.get_dimension(), second.get_dimension());
+	
     // helpers
     // first summation level
     Besns_number current_sum(number_dimension); // exception
@@ -31,8 +56,8 @@ Besns_number Besns_parallel_summator::get_sum(const Besns_number& first, const B
     Besns_number current_over_digit_transfer(number_dimension); // exception
     
     // second summation level
-	Besns_number sum_digit_transfer_first_digits(number_dimension);
-	Besns_number sum_digit_transfer_second_digits(number_dimension);
+	Besns_number sum_digit_transfer_first_digits(number_dimension); // exception
+	Besns_number sum_digit_transfer_second_digits(number_dimension); // exception
     
     // third level, i.e. result
     Besns_number result(number_dimension); // exception

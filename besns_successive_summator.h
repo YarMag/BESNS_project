@@ -26,7 +26,7 @@ public:
     // param first: first summand
     // param second: second summand
     // returns: sum number
-    static Besns_number get_sum(const Besns_number& first, const Besns_number& second);
+    static Besns_number get_sum(const Besns_number& first, const Besns_number& second); // exception
     
 private:
     // corrects triad according to arithmetic rules

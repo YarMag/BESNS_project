@@ -20,7 +20,7 @@ namespace besns
 // param first: first summand
 // param second: second summand
 // returns: sum number
-Besns_number Besns_successive_summator::get_sum(const Besns_number& first, const Besns_number& second)
+Besns_number Besns_successive_summator::get_sum(const Besns_number& first, const Besns_number& second) // exception
 {
     uint32_t number_dimension = std::max(first.get_dimension(), second.get_dimension());
     Besns_number result(number_dimension); // exception
@@ -75,7 +75,7 @@ Besns_number Besns_successive_summator::get_sum(const Besns_number& first, const
 }
 
 // corrects triad according to arithmetic rules
-void Besns_successive_summator::_correct_triad(Besns_triad& triad) const
+void Besns_successive_summator::_correct_triad(Besns_triad& triad)
 {
     // positive values in the middle aren't allowed, so replace them
     if (std::get<0>(triad) == Besns_digit::zero && std::get<1>(triad) == Besns_digit::pos_one)
@@ -83,12 +83,17 @@ void Besns_successive_summator::_correct_triad(Besns_triad& triad) const
         std::get<0>(triad) = Besns_digit::pos_one;
         std::get<1>(triad) = Besns_digit::neg_one;
     }
-    else
-        ; // add correction on demand
+	else if (std::get<0>(triad) == Besns_digit::neg_one && std::get<1>(triad) == Besns_digit::pos_one)
+	{
+		std::get<0>(triad) = Besns_digit::zero;
+		std::get<1>(triad) = Besns_digit::neg_one;
+	}
+	else
+	    ; // add correction on demand
 }
 
 // shift triad - throw away first digit and add zero as new third
-void Besns_successive_summator::_shift_triad(Besns_triad& triad) const
+void Besns_successive_summator::_shift_triad(Besns_triad& triad)
 {
     // create new triad without 0-th digit
     triad = std::make_tuple(std::get<1>(triad), std::get<2>(triad), Besns_digit::zero);

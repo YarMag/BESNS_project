@@ -22,11 +22,11 @@ namespace besns
 class Besns_succ_par_multiplier
 {
 public:
-	// gets multiplication of two numbers
-	// param first: first operand
-	// param second: second operand
-	// returns: product of the specified operands
-    static Besns_number get_mul(const Besns_number& first, const Besns_number& second);
+    // gets multiplication of two numbers
+    // param first: first operand
+    // param second: second operand
+    // returns: product of the specified operands
+    static Besns_number get_mul(const Besns_number& first, const Besns_number& second); // exception
 };
     
 }
