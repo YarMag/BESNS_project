@@ -29,12 +29,12 @@ const char Besns_converter::s_one_char = '1';
 // returns: besns string for passed number
 std::string Besns_converter::double_to_besns_str(double number, uint32_t required_dimension)
 {
-    // by definition, besns is used to represent numbers in range [0;1)
+    // by definition, besns is using to represent numbers in range [0;1)
     if (std::abs(number) > 1)
         throw std::runtime_error(""); // exception
     
     // get binary code first - we will handle it to represent besns number
-    std::string str_to_convert = _get_binary_code_string(number, required_dimension); // exception
+    std::string str_to_convert = _get_binary_code_string(std::abs(number), required_dimension); // exception
     
     // if number is negative, we must work with its two's complement
     if (number < 0)
