@@ -44,17 +44,17 @@ Besns_number::Besns_number(uint32_t dimension)
 // param besns_str: besns str to be represented as number
 Besns_number::Besns_number(const std::string& besns_str) // exception
 {
-    _construct_with_string(besns_str); // exception
+	_construct_with_string(besns_str); // exception
 }
 
 // param number: double number to represent
 // param required_dimension: an amount of digits which are followed by auxiliary digits
 Besns_number::Besns_number(double number, uint32_t required_dimension) // exception
 {
-    // create besns str with converter
-    const std::string besns_str = Besns_converter::double_to_besns_str(number, required_dimension); // exception
+	// create besns str with converter
+	const std::string besns_str = Besns_converter::double_to_besns_str(number, required_dimension); // exception
 
-    _construct_with_string(besns_str); // exception
+	_construct_with_string(besns_str); // exception
 }
 
 // destructor
@@ -96,6 +96,23 @@ uint32_t Besns_number::get_dimension(void) const
     return m_dimension;
 }
 
+// returns: true if number has zeros only
+bool Besns_number::is_zero(void) const
+{
+	bool has_zeros_only = true;
+
+	for (uint32_t i = 0; i < m_number.size(); i++)
+	{
+		if (m_number[i] != Besns_digit::zero)
+		{
+			has_zeros_only = false;
+			break;
+		}
+	}
+
+	return has_zeros_only;
+}
+
 // returns: str representation for current number
 const std::string& Besns_number::to_str(void) // exception
 {
@@ -133,9 +150,9 @@ void Besns_number::_init_with_zeros(void)
 // param besns_str: string which contains besns number
 void Besns_number::_construct_with_string(const std::string& str) // exception
 {
-    // suppose that string is valid and have necessary amount of auxiliary digits, dot and other digits
-    // if string has incorrect format, exception will be thrown during initialization
-    m_dimension = static_cast<uint32_t>(str.size() - 1);
+	// suppose that string is valid and have necessary amount of auxiliary digits, dot and other digits
+	// if string has incorrect format, exception will be thrown during initialization
+	m_dimension = static_cast<uint32_t>(str.size() - 1);
     m_number.resize(m_dimension); // exception
     
     _init_with_string(str); // exception

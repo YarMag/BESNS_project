@@ -38,9 +38,9 @@ public:
     // param besns_str: besns str to be represented as number
     Besns_number(const std::string& besns_str); // exception
 
-    // param number: double number to represent
-    // param required_dimension: an amount of digits which are followed by auxiliary digits
-    Besns_number(double number, uint32_t required_dimension); // exception
+	// param number: double number to represent
+	// param required_dimension: an amount of digits which are followed by auxiliary digits
+	Besns_number(double number, uint32_t required_dimension); // exception
 
     // destructor
     ~Besns_number(void);
@@ -58,6 +58,9 @@ public:
     // returns: dimension including auixiliary digits and number digits
     uint32_t get_dimension(void) const;
     
+	// returns: true if number has zeros only
+	bool is_zero(void) const;
+
     // conversion methods
     
     // returns: str representation for current number
@@ -72,9 +75,9 @@ private:
     // fills current number with zeros
     void _init_with_zeros(void);
     
-    // performs constructor actions for string with besns number
-    // param besns_str: string which contains besns number
-    void _construct_with_string(const std::string& besns_str); // exception
+	// performs constructor actions for string with besns number
+	// param besns_str: string which contains besns number
+	void _construct_with_string(const std::string& besns_str); // exception
 
     // inits number with passed besns string
     void _init_with_string(const std::string& str); // exception
